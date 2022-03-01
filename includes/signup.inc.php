@@ -23,7 +23,7 @@ if (isset($_POST['submit'])){
     exit();
   }
   // Admin Exists
-  if (adminExists($name) !== false) {
+  if (adminExists($conn, $name) !== false) {
     header("Location: ../account.php?error=adminexists");
     exit();
   }

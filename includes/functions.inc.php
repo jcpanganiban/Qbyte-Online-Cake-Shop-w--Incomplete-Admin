@@ -60,7 +60,7 @@ function adminExists($conn, $name) {
   // Checking if we get data result from database
   if ($row = mysqli_fetch_assoc($resultData)){
     // this has a second purpose for login
-    return $row; //returning all data if the user already exists (if data is returned it is considered as true)
+    return in_array("admin", $row) || in_array("Admin", $row); //returning all data if the user already exists (if data is returned it is considered as true)
   }
   else{
     $result = false;
@@ -196,6 +196,11 @@ function loginUser($conn, $email, $password){
     $_SESSION['username'] = $emailExists['usersName'];
     $_SESSION['useremail'] = $emailExists['usersEmail'];
     $_SESSION['usercontact'] = $emailExists['usersContact'];
+    if (ucfirst($_SESSION['username']) === "Admin") {
+      //accepting admin or Admin
+      header("Location: ../admin/admin.index.php");
+      exit();
+    }
     header("Location: ../index.php");
     exit();
   }
@@ -216,7 +221,7 @@ function emptyInputReset($email) {
 
 // For Product page
 function namedb($id){
-  require "./includes/dbh.product.inc.php";
+  require "./includes/dbh.inc.php";
   $sql = "SELECT * FROM products WHERE proId='$id'";
   $result = mysqli_query($conn, $sql);
   while($row = mysqli_fetch_assoc($result)){
@@ -225,7 +230,7 @@ function namedb($id){
 }
 
 function descdb($id){
-  require "./includes/dbh.product.inc.php";
+  require "./includes/dbh.inc.php";
   $sql = "SELECT * FROM products WHERE proId='$id'";
   $result = mysqli_query($conn, $sql);
   while($row = mysqli_fetch_assoc($result)){
@@ -234,7 +239,7 @@ function descdb($id){
 }
 
 function pricedb($id){
-  require "./includes/dbh.product.inc.php";
+  require "./includes/dbh.inc.php";
   $sql = "SELECT * FROM products WHERE proId='$id'";
   $result = mysqli_query($conn, $sql);
   while($row = mysqli_fetch_assoc($result)){
@@ -243,7 +248,7 @@ function pricedb($id){
 }
 
 function imgdb($id){
-  require "./includes/dbh.product.inc.php";
+  require "./includes/dbh.inc.php";
   $sql = "SELECT * FROM products WHERE proId='$id'";
   $result = mysqli_query($conn, $sql);
   while($row = mysqli_fetch_assoc($result)){
@@ -253,7 +258,7 @@ function imgdb($id){
 
 // For Order Page
 function orderdb($name){
-  require "./includes/dbh.product.inc.php";
+  require "./includes/dbh.inc.php";
   // $sql = "SELECT * FROM products WHERE proName='$name'";
   $sql = "SELECT * FROM products WHERE proName='$name'";
   $result = mysqli_query($conn, $sql);

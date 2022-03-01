@@ -77,7 +77,7 @@ if(isset($_POST['reset-password-submit'])){
             echo "<script> window.location.href='../create-new-password.php?selector=" . $selector . "&validator=" . $validator . "&error=emptyusersrow';</script>";
           }
           else{
-            print_r($row['usersContact']);
+            // print_r($row['usersContact']);
             // Updating the password from inside the users table
             $sql = "UPDATE users SET usersPwd = ? WHERE usersEmail = ?;";
             

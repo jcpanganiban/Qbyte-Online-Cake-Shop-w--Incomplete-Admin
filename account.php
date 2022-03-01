@@ -117,6 +117,12 @@
         echo "<script> window.location.href='./account.php';</script>";
         die();
       }
+      // Contact Number already exists
+      else if ($_GET['error'] === "adminexists"){
+        echo "<script>window.alert('You are not the admin!')</script>";
+        echo "<script> window.location.href='./account.php';</script>";
+        die();
+      }
       // Password is longer than 6 characters
       else if ($_GET['error'] === "weakpassword"){
         echo "<script>window.alert('Your password must be more than 6 characters!')</script>";

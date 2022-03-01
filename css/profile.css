@@ -1,8 +1,9 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap");
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  font-family: "Times New Roman", Times, serif;
+  font-family: "Poppins", sans-serif;
   font-size: 16px;
 }
 
@@ -47,7 +48,7 @@
 
 .container .content .account-content {
   min-width: 80%;
-  height: 500px;
+  height: 600px;
   /* background: var(--accountPageColor); */
   background: rgba(212, 163, 115, 0.35);
   padding: 2% 2%;
@@ -139,6 +140,7 @@
   -moz-box-shadow: none;
   -webkit-box-shadow: none; */
 }
+
 .container
   .content
   .account-content
@@ -185,6 +187,16 @@
   background-color: transparent;
   /* background-color: rgba(0, 0, 0, 0.25); */
   border: none;
+}
+
+.container
+  .content
+  .account-content
+  .main-content
+  .display-name
+  .displaycontent
+  .input-email {
+  width: 400px;
 }
 
 .input-password-repeat {

@@ -1,13 +1,15 @@
 <?php
   session_start();
   require "../includes/functions.inc.php";
-  // if(isset($_GET['item'])){
-
-  // }
   $try = print_r($_GET['item'], true);
   $arr = explode(",",$_GET['item']);
-  require "../includes/dbh.order.inc.php";
-  $sql = "INSERT INTO orders (username, userOrder) VALUES ('tryy lang ahe', '$try');";
+
+  require "../includes/dbh.inc.php";
+  date_default_timezone_set("Asia/Singapore");
+  $date = date('Y-m-d');
+  $time = date('h:i A');
+  $datetime = date('Y-m-d H:i');
+  $sql = "INSERT INTO orders (username, orders, currDate, currTime, totalPrice, orderState, compDateTime) VALUES ('tryy lang ahe', '$try', '$date', '$time', 20, 'Preparing', '$datetime');";
   mysqli_query($conn, $sql);
 ?>
 
@@ -29,68 +31,108 @@
   ?>
 
 <div class="main">
-  <div class="checkout-content">
-    <div class="left-content">
-      <div class="topleft-content">
-        <div class="arrow">
-          <img src="../img/icons/back-icon.svg" alt="basta kunyare arrow" />
+        <div class="checkout-content">
+          <div class="left-content" id="left-content">
+            <div class="topleft-content">
+              <div class="arrow" id="arrow">
+                <a href="./products.php">
+                  <img
+                  src="../img/icons/back-icon.svg"
+                  alt="basta kunyare arrow"
+                />
+                </a>
+              </div>
+                
+              <h1 class="checkout-word">Checkout</h1>
+            </div>
+            <div class="lowerleft-content" id="lowerleft-content">
+              <div class="left" id="left">
+                <?php 
+                foreach($arr as $loopdata){
+                    // require "../includes/dbh.order.inc.php"
+                    echo $loopdata;
+                  
+                    echo "<div class='product-box'>";
+                    echo "<p class='proName'>Name ng Product</p>";
+                    echo "<p class='proPrice'>Price ng Product</p>";
+                    
+                    
+                    echo "</div>";
+                  }
+                ?>
+              </div>
+              
+            </div>
+            <div class="right">
+
+            </div>
+          </div>
+
+          <div class="right-content" id="right-content">
+            <div class="topright-content">
+              <h1 class="fontsize">Order Summary</h1>
+              <div class="wline"></div>
+              <div class="orders">
+
+                <?php 
+                  foreach($arr as $loopdata){
+                    // require "../includes/dbh.order.inc.php"
+                    echo "<div class='ordersum'>";
+                    echo "<div class='prodname'>".orderdb($loopdata)."</div";
+                    echo "><div class='prodprice'>".orderdb($loopdata)."</div></div>";
+                  }
+                  
+                ?>
+              
+              </div>
+            </div>
+            <div class="lowerright-content">
+              <form action="" method="POST" class="form">
+                <div class="inputfield">
+                  <label for="deliverydate"><strong>Deliver Time</strong></label
+                  ><br />
+                  <select name="deliverydate" id="deliverydate">
+                    <option value="today">Today</option>
+                    <!-- <option value="Tomorrow">Tomorrow</option> -->
+                  </select>
+                  <select name="time" id="time">
+                    <option value="15 minutes">15 Mins</option>
+                    <option value="30 minutes">30 Mins</option>
+                    <option value="45 minutes">45 Mins</option>
+                    <option value="1 hour">1 Hour</option>
+                    <option value="2 hours">2 Hour</option>
+                  </select>
+                  <br />
+                  <label for="address" id="target"><strong>Pickup at</strong></label
+                  ><br />
+                  <input
+                    type="text"
+                    name="address"
+                    id="address"
+                    value="127 A. Luna St. Brgy. Malinao, Pasig, Philippines" readonly
+                  />
+                  
+                  <br />
+                  <label for="payment"><strong>Payment</strong></label
+                  ><br />
+                  <input
+                    type="text"
+                    name="payment"
+                    id="payment"
+                    value="Cash on Pickup" readonly
+                  />
+                </div>
+              </form >
+              <form method="post">
+                  <button type="button" class="checkout-btn" id="checkout-btn" name="checkout-btn">PLACE ORDER</button>
+              </form>
+              
+            </div>
+          </div>
         </div>
-        <h1 class="checkout-word">Checkout</h1>
-      </div>
-      <div class="lowerleft-content">
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Modi
-        excepturi facilis asperiores totam sequi delectus nostrum libero
-        assumenda reiciendis. Sequi maiores nostrum qui mollitia natus
-        iusto quia totam porro corrupti?
       </div>
     </div>
-
-    <div class="right-content">
-      <div class="topright-content">
-        <h1 class="fontsize">Order Summary</h1>
-        <div class="wline"></div>
-        <div class="orders">
-          <div class="ordersum">
-            <span class="prodname">Tite</span><span class="prodprice">P2.00</span>
-          </div>
-          <div class="ordersum">
-            <span class="prodname">Tite</span><span class="prodprice">P2.00</span>
-          </div>
-        </div>
-      </div>
-      <div class="lowerright-content">
-        <form action="" method="" class="form">
-          <div class="inputfield">
-            <label for="deliverydate"><strong>Deliver Time</strong></label><br />
-            <select name="deliverydate" id="deliverydate">
-              <option value="today">Today</option>
-              <option value="tomorrow">Tomorrow</option>
-            </select>
-            <select name="time" id="time">
-              <option value="15min">15 Mins</option>
-              <option value="30min">30 Mins</option>
-              <option value="45min">45 Mins</option>
-              <option value="1hr">1 Hour</option>
-              <option value="2hr">2 Hour</option>
-            </select>
-            <br />
-            <label for="address"><strong>Delivery Address</strong></label><br />
-            <input type="text" name="address" id="address" placeholder="Enter your Address here..." />
-            <br />
-            <label for="address2"><strong>Floor / Unit / Room</strong></label><br />
-            <input type="text" name="address2" id="address2" placeholder="Enter your Address here..." />
-            <br />
-            <label for="payment"><strong>Payment</strong></label><br />
-            <input type="text" name="payment" id="payment" placeholder="Cash on Delivery" />
-          </div>
-        </form>
-        <button class="checkout-btn">PLACE ORDER</button>
-      </div>
-    </div>
-  </div>
-</div>
-</div>
-<footer class="footer"></footer>
-</body>
-
+    <footer class="footer"></footer>
+  </body>
+  <script src="../js/checkout.js"></script>
 </html>

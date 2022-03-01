@@ -19,9 +19,6 @@
                 <?php
                   if (isset($_SESSION['useremail'])){
                     echo '<li><a href="./products.php">Order</a></li>';
-                    if (ucwords($_SESSION['username']) === "Admin"){
-                      echo '<li><a href="./#.php">Management</a></li>';
-                    }
                     echo '<li><a href="./includes/logout.inc.php">Logout</a></li>';
                     echo '<li><a href="./profile.php"><img src="./img/icons/user-icon.svg" alt="" /></a></li>';
                   }
